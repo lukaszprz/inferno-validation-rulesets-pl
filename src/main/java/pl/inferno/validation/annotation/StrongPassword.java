@@ -11,20 +11,22 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-
-import pl.inferno.validation.validators.PasswordConfirmedValidator;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * @author lukasz
  *
  */
-@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
+@Size(min = 4, max = 10)
+@Pattern(regexp = ".*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$")
+@Target({ ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordConfirmedValidator.class)
+@Constraint(validatedBy = {})
 @Documented
-public @interface PasswordConfirmed {
+public @interface StrongPassword {
 
-	String message() default "passwords do not match"; // default error message
+	String message() default ""; // required
 
 	Class<?>[] groups() default {}; // required
 

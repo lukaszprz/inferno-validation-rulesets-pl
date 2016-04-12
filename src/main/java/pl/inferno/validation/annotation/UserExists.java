@@ -12,21 +12,21 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import pl.inferno.validation.validators.PasswordConfirmedValidator;
+import pl.inferno.validation.validators.UserExistsValidator;
 
 /**
  * @author lukasz
  *
  */
-@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordConfirmedValidator.class)
 @Documented
-public @interface PasswordConfirmed {
+@Constraint(validatedBy = UserExistsValidator.class)
+public @interface UserExists {
 
-	String message() default "passwords do not match"; // default error message
+	String message() default "user does not exist";
 
-	Class<?>[] groups() default {}; // required
+	Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {}; // required
+	Class<? extends Payload>[] payload() default {};
 }
